@@ -38,7 +38,11 @@ A conda environment named _MosaicViewer\_env_ is created, where seqtk, minimap2,
 Then, you can open the **config_MosaicViewer.sh** file with a text editor and set the variables _PIPELINE_DIR_ and _MINICONDA_DIR_ to the value suggested by the installation step.
 
 ## Usage
-As a first step, open the **config_MosaicViewer.sh** file with a text editor and set all the variables. 
+As a first step, open the **config_MosaicViewer.sh** file with a text editor and set all the variables. Depending on the reference coordinates set in the file, in-silico PCR primers and flanking regions for performing left or right alignment are extracted.
+
+<p align="center">
+  <img src="Figures/CNBP_left_right_alignment.png" alt="drawing" width="800" title="CNBP_left_right_alignment">
+</p>
 
 **MosaicViewer.sh**
 
@@ -53,6 +57,8 @@ Outputs:
 * Other temporary files
 
 ## Results visualization
+
+For example, this is how the left alignment of trimmed reads (with or without colouring based on annotated repeats) would look like.
 
 <p align="center">
   <img src="Figures/MosaicViewer_output_example.png" alt="drawing" width="800" title="MosaicViewer_output_example">
