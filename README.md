@@ -6,23 +6,39 @@
   <img src="Figures/MosaicViewer.png" alt="drawing" width="400" title="MosaicViewer_pipeline">
 </p>
 
+
 ## Getting started
 
 **Prerequisites**
 
-* [NoiseCancellingRepeatFinder](https://github.com/makovalab-psu/NoiseCancellingRepeatFinder)
-* [NanoFilt](https://github.com/wdecoster/nanofilt)
-* [BBMap](https://anaconda.org/bioconda/bbmap)
-* [Seqtk](https://github.com/lh3/seqtk)
-* [Samtools](https://github.com/samtools/samtools)
-* [Minimap2](https://github.com/lh3/minimap2)
-* R with ggplot package
+* Miniconda3.
+Tested with conda 4.8.1.
+```which conda``` should return the path to the executable.
+If you don't have Miniconda3 installed, you could download and install it with:
+```
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+chmod 755 Miniconda3-latest-Linux-x86_64.sh
+./Miniconda3-latest-Linux-x86_64.sh
+```
+
 * A fastq file containing reads from one sample. Tested with files produced with Guppy v3.4.5 specifying ```--pt_scale TRUE``` parameter.
 * A fasta file containing reference sequence (e.g. hg38)
 * Coordinates of flanking regions (e.g. used for designing Crispr-Cas9 guides)
 
+**Installation**
+
+```
+git clone https://github.com/MaestSi/MosaicViewer.git
+cd MosaicViewer
+chmod 755 *
+./install.sh
+```
+
+A conda environment named _MosaicViewer\_env_ is created, where seqtk, minimap2, samtools, NoiseCancellingRepeatFinder, BBMap and R with package Biostrings are installed. Another conda environment named _NanoFilt\_env_ is created, where NanoFilt is installed. 
+Then, you can open the **config_MosaicViewer.sh** file with a text editor and set the variables _PIPELINE_DIR_ and _MINICONDA_DIR_ to the value suggested by the installation step.
+
 ## Usage
-As a first step, open the **config_MosaicViewer** file with a text editor and set all the variables. 
+As a first step, open the **config_MosaicViewer.sh** file with a text editor and set all the variables. 
 
 **MosaicViewer.sh**
 
