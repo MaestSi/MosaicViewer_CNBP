@@ -25,7 +25,6 @@ if (args[1] == "-h" | args[1] == "--help") {
   cat(paste0("<reads_fw>: reads in forward orientation in fasta format, used for NCRF annotation"), sep = "\n")
   cat(paste0("<simplified_reads>: output file with simplified reads, optional [~/Simplified_reads.fasta]"), sep = "\n")
   cat(paste0("<alignment side>: side of the alignment (left or right), optional [left]"), sep = "\n")
-
   stop(simpleError(sprintf("\r%s\r", paste(rep(" ", getOption("width")-1L), collapse=" "))))
 }
 

@@ -48,12 +48,15 @@ FLANKING_REF_COORD="chr3:129172733-129175931"
 #FLANKING_COORD_TRIMMED are coordinates of genomic regions used to trim the other flanking region
 FLANKING_COORD_TRIMMED="chr3:129171681-129172577"
 
-#TOOLS
-MSA=msa.sh
-CUTPRIMERS=cutprimers.sh
-SAMTOOLS=samtools
-MINIMAP2=minimap2
-SEQTK=seqtk
-NANOFILT="/path/to/NanoFilt"
-NCRF_DIR="/path/to/NoiseCancellingRepeatFinder/directory"
-SIMPLIFY_READS="Rscript /path/to/simplify_reads.R"
+########################################################################################################
+PIPELINE_DIR="/path/to/MosaicViewer"
+MINICONDA_DIR="/path/to/miniconda3"
+########### End of user editable region #################################################################
+MSA=$MINICONDA_DIR"/envs/MosaicViewer_env/bin/msa.sh"
+CUTPRIMERS=$MINICONDA_DIR"/envs/MosaicViewer_env/bin/cutprimers.sh"
+SAMTOOLS=$MINICONDA_DIR"/envs/MosaicViewer_env/bin/samtools"
+MINIMAP2=$MINICONDA_DIR"/envs/MosaicViewer_env/bin/minimap2"
+SEQTK=$MINICONDA_DIR"/envs/MosaicViewer_env/bin/seqtk"
+NANOFILT=$MINICONDA_DIR"/envs/MosaicViewer_env/bin/NanoFilt"
+NCRF_DIR=$MINICONDA_DIR"/envs/MosaicViewer_env/bin/"
+SIMPLIFY_READS=$MINICONDA_DIR"/envs/MosaicViewer_env/bin/Rscript "$PIPELINE_DIR"/simplify_reads.R"
