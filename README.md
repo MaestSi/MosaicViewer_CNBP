@@ -21,7 +21,7 @@ chmod 755 Miniconda3-latest-Linux-x86_64.sh
 ./Miniconda3-latest-Linux-x86_64.sh
 ```
 
-* A fastq file containing reads from one sample. Tested with files produced with Guppy v3.4.5 specifying ```--pt_scale TRUE``` parameter.
+* A fastq file containing reads from one sample. Tested with files produced with Guppy v3.4.5 specifying ```--pt_scaling TRUE``` parameter.
 * A fasta file containing reference sequence (e.g. hg38)
 * Coordinates of flanking regions (e.g. used for designing Crispr-Cas9 guides)
 
