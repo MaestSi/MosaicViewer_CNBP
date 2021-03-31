@@ -49,7 +49,7 @@ FLANKING_REF_COORD="chr3:129172733-129175931"
 FLANKING_COORD_TRIMMED="chr3:129171681-129172577"
 
 ########################################################################################################
-PIPELINE_DIR="/path/to/MosaicViewer"
+PIPELINE_DIR="/path/to/MosaicViewer_CNBP"
 MINICONDA_DIR="/path/to/miniconda3"
 ########### End of user editable region #################################################################
 MSA=$MINICONDA_DIR"/envs/MosaicViewer_env/bin/msa.sh"
