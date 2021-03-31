@@ -1,1 +1,1 @@
-MosaicViewer-v1.0.0
+MosaicViewer_CNBP-v1.0.0
