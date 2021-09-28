@@ -120,7 +120,6 @@ for (i in 1:length(Read_name_unique)) {
   #G -> TG
   #C -> CCTG
   #T -> TCTG
-  #A -> CCCG
   Read_name_curr <- Read_name_unique[i]
   ind_curr <- which(Read_name == Read_name_unique[i])
   ind_curr_fasta <- which(names(Reads_obj) == Read_name_curr)
@@ -148,9 +147,6 @@ for (i in 1:length(Read_name_unique)) {
       }
       if (Repeat_motif[k] == "TCTG_repeat") {
         Reads_simplified_curr[Repeat_start[k]:Repeat_end[k]] <- "T"
-      }
-      if (Repeat_motif[k] == "CCCG_repeat") {
-        Reads_simplified_curr[Repeat_start[k]:Repeat_end[k]] <- "A"
       }
       if (Repeat_motif[k] == "CCTG_repeat") {
         Reads_simplified_curr[Repeat_start[k]:Repeat_end[k]] <- "C"
