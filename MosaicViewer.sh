@@ -85,8 +85,7 @@ $SAMTOOLS view $SAMPLE_NAME"_trimmed_"$SIDE".bam" -F2308 | awk '{OFS="\t"; print
 cat $SAMPLE_NAME"_trimmed_"$SIDE"_fw.fasta" | $NCRF_DIR"/NCRF" --scoring=nanopore --minlength=16 TCTG_repeat:TCTG --minmratio=0.90 --stats=events --positionalevents > $SAMPLE_NAME"_"$SIDE"_TCTG.ncrf"
 cat $SAMPLE_NAME"_trimmed_"$SIDE"_fw.fasta" | $NCRF_DIR"/NCRF" --scoring=nanopore --minlength=16 CCTG_repeat:CCTG --minmratio=0.90 --stats=events --positionalevents > $SAMPLE_NAME"_"$SIDE"_CCTG.ncrf"
 cat $SAMPLE_NAME"_trimmed_"$SIDE"_fw.fasta" | $NCRF_DIR"/NCRF" --scoring=nanopore --minlength=8 TG_repeat:TG --minmratio=0.90 --stats=events --positionalevents > $SAMPLE_NAME"_"$SIDE"_TG.ncrf"
-cat $SAMPLE_NAME"_trimmed_"$SIDE"_fw.fasta" | $NCRF_DIR"/NCRF" --scoring=nanopore --minlength=16 CCCG_repeat:CCCG --minmratio=0.90 --stats=events --positionalevents > $SAMPLE_NAME"_"$SIDE"_CCCG.ncrf"
-$NCRF_DIR"/ncrf_cat.py" $SAMPLE_NAME"_"$SIDE"_CCTG.ncrf" $SAMPLE_NAME"_"$SIDE"_TCTG.ncrf" $SAMPLE_NAME"_"$SIDE"_TG.ncrf" $SAMPLE_NAME"_"$SIDE"_CCCG.ncrf" | $NCRF_DIR"/ncrf_sort.py" --sortby=name | $NCRF_DIR"/ncrf_summary.py" | grep -P "^#|\+" > $SAMPLE_NAME"_trimmed_"$SIDE"_fw.ncrf.summary"
+$NCRF_DIR"/ncrf_cat.py" $SAMPLE_NAME"_"$SIDE"_CCTG.ncrf" $SAMPLE_NAME"_"$SIDE"_TCTG.ncrf" $SAMPLE_NAME"_"$SIDE"_TG.ncrf" | $NCRF_DIR"/ncrf_sort.py" --sortby=name | $NCRF_DIR"/ncrf_summary.py" | grep -P "^#|\+" > $SAMPLE_NAME"_trimmed_"$SIDE"_fw.ncrf.summary"
 
 #extract ID of reads that mapped as RC
 $SAMTOOLS view -f16 $SAMPLE_NAME"_trimmed_"$SIDE".bam" | cut -f1 | sort > $SAMPLE_NAME"_"$SIDE"_reads_trimmed_to_rc_IDs.txt"
