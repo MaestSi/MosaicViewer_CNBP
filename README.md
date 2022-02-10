@@ -48,7 +48,7 @@ As a first step, open the **config_MosaicViewer.sh** file with a text editor and
 
 Usage: ./MosaicViewer.sh
 
-Note: the file **config_MosaicViewer.sh** should be in the same directory. It currently supports only TG, CCTG, TCTG and CCCG repeat motifs.
+Note: the file **config_MosaicViewer.sh** should be in the same directory. It currently supports only TG, CCTG and TCTG repeat motifs.
 
 Outputs:
 
