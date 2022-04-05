@@ -34,6 +34,12 @@ chmod 755 *
 ./install.sh
 ```
 
+Otherwise, you can download a docker image with:
+
+```
+docker pull maestsi/mosaicviewer_cnbp:latest
+```
+
 A conda environment named _MosaicViewer\_env_ is created, where seqtk, minimap2, samtools, NoiseCancellingRepeatFinder, BBMap and R with package Biostrings are installed. Another conda environment named _NanoFilt\_env_ is created, where NanoFilt is installed. 
 Then, you can open the **config_MosaicViewer.sh** file with a text editor and set the variables _PIPELINE_DIR_ and _MINICONDA_DIR_ to the value suggested by the installation step.
 
