@@ -1,5 +1,5 @@
 #
-# Copyright 2022 Simone Maestri. All rights reserved.
+# Copyright 2026 Simone Maestri. All rights reserved.
 # Simone Maestri <simone.maestri@univr.it>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -120,36 +120,64 @@ for (i in 1:length(Read_name_unique)) {
   #G -> TG
   #C -> CCTG
   #T -> TCTG
+  #A -> CCCG
   Read_name_curr <- Read_name_unique[i]
   ind_curr <- which(Read_name == Read_name_unique[i])
   ind_curr_fasta <- which(names(Reads_obj) == Read_name_curr)
   Read_seq_curr <- Reads_obj[ind_curr_fasta]
   Reads_simplified_curr <- rep(x = "N", times = Read_length[ind_curr[1]])
+  Reads_simplified_curr_zebra <- rep(x = "N", times = Read_length[ind_curr[1]])
   #skip the read if performing a left alignment and no repeat starts after min_left_flanking from the beginning of the read, or if performing a right alignment and no repeat ends before min_right_flanking from the end of the read
+  tol <- 900
+  thr_zebra <- 150
   if (Alignment_side == "left" && length(Repeat_start[ind_curr][which(Repeat_start[ind_curr] > min_left_flanking)]) == 0 || Alignment_side == "right" && length(Repeat_end[ind_curr][which(Repeat_end[ind_curr] < (nchar(Read_seq_curr) - min_right_flanking))]) == 0) {
     #skip read
     Reads_simplified_curr <- Read_seq_curr
   } else {
     if (Alignment_side == "left") {
-      first_rep_coord <- min(Repeat_start[ind_curr][which(Repeat_start[ind_curr] > min_left_flanking)])
+      #assess first repeat coordinate that introduces additional Ns
+      first_rep_coord_tmp <- min(tol, min(Repeat_start[ind_curr][which(Repeat_start[ind_curr] > min_left_flanking)]))
+      #assess first repeat coordinate that may result in zebra reads
+      first_rep_coord_zebra <- min(Repeat_start[ind_curr][which(Repeat_start[ind_curr] > min_left_flanking)])
+      #if those two coordinates differ for more than thr_zebra bases, then treat the current read as a zebra read
+      if (first_rep_coord_zebra - first_rep_coord_tmp > thr_zebra) {
+        first_rep_coord <- first_rep_coord_tmp
+      } else {
+        first_rep_coord <- first_rep_coord_zebra
+      }
       left_flanking_curr <- substr(x = Read_seq_curr, start = 1, stop = first_rep_coord)
       Reads_simplified_curr[1:nchar(left_flanking_curr)] <- unlist(strsplit(left_flanking_curr, split = ""))
     } else {
-      last_rep_coord <- max(Repeat_end[ind_curr][which(Repeat_end[ind_curr] < (nchar(Read_seq_curr) - min_right_flanking))])
-      ind_last_rep <- which(Repeat_end[ind_curr] == last_rep_coord)
+      #assess last repeat coordinate that introduces additional Ns
+      last_rep_coord_tmp <- max(max(Repeat_end[ind_curr][which(Repeat_end[ind_curr] < (nchar(Read_seq_curr) - min_right_flanking))]), nchar(Read_seq_curr) - tol)
+      #assess last repeat coordinate that may result in zebra reads
+      last_rep_coord_zebra <- max(Repeat_end[ind_curr][which(Repeat_end[ind_curr] < (nchar(Read_seq_curr) - min_right_flanking))])
+      #if those two coordinates differ for more than thr_zebra bases, then treat the current read as a zebra read
+      if (last_rep_coord_tmp - last_rep_coord_zebra > thr_zebra) {
+        last_rep_coord <- last_rep_coord_tmp
+      } else {
+        last_rep_coord <- last_rep_coord_zebra
+      }
       right_flanking_curr <- substr(x = Read_seq_curr, start = last_rep_coord, stop = nchar(Read_seq_curr))
       Reads_simplified_curr[last_rep_coord:nchar(Read_seq_curr)] <- unlist(strsplit(right_flanking_curr, split = ""))
     }
     for (k in ind_curr) {
       Repeat_motif_curr <- Repeat_motif[k]
-      if (Repeat_motif[k] == "TG_repeat") {
-        Reads_simplified_curr[Repeat_start[k]:Repeat_end[k]] <- "G"
-      }
+      #if (Repeat_motif[k] == "TG_repeat") {
+      #  Reads_simplified_curr[Repeat_start[k]:Repeat_end[k]] <- "G"
+      #  Reads_simplified_curr_zebra[Repeat_start[k]:Repeat_end[k]] <- "G"
+      #}
       if (Repeat_motif[k] == "TCTG_repeat") {
         Reads_simplified_curr[Repeat_start[k]:Repeat_end[k]] <- "T"
+        Reads_simplified_curr_zebra[Repeat_start[k]:Repeat_end[k]] <- "T"
       }
       if (Repeat_motif[k] == "CCTG_repeat") {
         Reads_simplified_curr[Repeat_start[k]:Repeat_end[k]] <- "C"
+        Reads_simplified_curr_zebra[Repeat_start[k]:Repeat_end[k]] <- "C"
+      }
+      if (Repeat_motif[k] == "CCCG_repeat") {
+        Reads_simplified_curr[Repeat_start[k]:Repeat_end[k]] <- "A"
+        Reads_simplified_curr_zebra[Repeat_start[k]:Repeat_end[k]] <- "A"
       }
     }
   }
